@@ -24,7 +24,16 @@ jobs:
           java-version: '17'
 
       - name: Setup Android SDK
-        uses: android/setup-android@v3
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          if [ -f "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]; then
+            SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          else
+            SDKMANAGER=$(find "$ANDROID_HOME" -name "sdkmanager" -type f 2>/dev/null | head -1)
+          fi
+          echo "sdkmanager: $SDKMANAGER"
+          yes | "$SDKMANAGER" --licenses || true
+          "$SDKMANAGER" "platforms;android-34" "build-tools;34.0.0" || true
 
       - name: Install Gradle
         run: |
