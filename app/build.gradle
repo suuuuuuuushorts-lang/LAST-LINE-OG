@@ -1,0 +1,31 @@
+plugins {
+  id 'com.android.application'
+}
+
+android {
+  namespace 'com.lastline.game'
+  compileSdk 34
+
+  defaultConfig {
+    applicationId "com.lastline.game"
+    minSdk 24
+    targetSdk 34
+    versionCode 1
+    versionName "1.0"
+  }
+
+  sourceSets {
+    main {
+      java.srcDirs = ['src']
+      manifest.srcFile 'src/AndroidManifest.xml'
+      res.srcDirs = ['res']
+      assets.srcDirs = ['assets']
+    }
+  }
+
+  buildTypes {
+    debug {
+      minifyEnabled false
+    }
+  }
+}
